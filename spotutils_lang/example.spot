@@ -1,0 +1,12 @@
+# this is a comment
+# example toy language for spotutils
+
+let url := "https://google.com"
+load url r1
+list songs
+if(len(r1) < 1){
+  print("this playlist is empty")
+}
+export json
+unload r1
+exit

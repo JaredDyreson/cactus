@@ -1,0 +1,19 @@
+exit
+export
+len
+list
+load
+print
+unload
+(
+)
+{
+}
+;
+# this is a comment
++
+-
+10
+https://open.spotify.com/playlist/3BuR35PTj7qmVsu4sm3990?si=sISR03vKQQmlo70rH6spwg
+let a := 10
+  let a := Hello World
