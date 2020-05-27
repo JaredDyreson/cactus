@@ -1,6 +1,13 @@
 from rply.token import BaseBox
 from ClassInformation import class_information_map
 
+"""
+TODO:
+
+- All functionality of the program should be here
+- The functions Kevin writes should be imported into this file and assigned correctly
+"""
+
 class Target(BaseBox):
     def __init__(self, target):
         self.target = target
