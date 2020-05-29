@@ -3,4 +3,11 @@ add CPSC-120
 remove CPSC-120
 describe CPSC-120
 status
+installed
+available
+init
+rekey
+# testing case sensitivity
+REKey
+# testing an invalid selection
 garbage

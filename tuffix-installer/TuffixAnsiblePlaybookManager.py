@@ -40,5 +40,5 @@ TuffixAnisblePlaybooks = {
   "cpsc-120": "CPSC_120_AnsiblePlaybook.ansible"
 }
 
-Manager = PlaybookManager(TuffixAnisblePlaybooks, TuffixPlaybookDir)
-Manager.run_target("cpsc-120", True)
+# Manager = PlaybookManager(TuffixAnisblePlaybooks, TuffixPlaybookDir)
+# Manager.run_target("cpsc-120", True)

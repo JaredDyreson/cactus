@@ -4,8 +4,6 @@ from TuffixParser import Parser
 from Lexer import Lexer
 from TuffixKeywords import TuffixTokenMap
 from rply.errors import LexingError
-import getch
-import sys
 
 """
 Driver code for the Tuffix Installer Prompt
@@ -44,7 +42,8 @@ def tuffix_script(path: str):
       for line in content:
         current_line = line
         parser.parse(lexer.lex(line)).eval()
-  except LexingError:
+  except Exception as error:
       print("[-] Invalid selection of {} received, stop".format(current_line.strip()))
+      pass
 
 tuffix_script("tuffix_installer_script")

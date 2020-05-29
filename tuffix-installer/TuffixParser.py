@@ -36,6 +36,22 @@ class Parser():
         def ignore_comment(p):
             return Ignore(p)
 
+        @self.pg.production('expression : INIT')
+        def initialize_tuffix(p):
+            return Initialize(p)
+
+        @self.pg.production('expression : LIST_INSTALLED')
+        def list_installed(p):
+            return ListInstalled(p)
+
+        @self.pg.production('expression : LIST_AVAILABLE')
+        def list_availble(p):
+            return ListAvailable(p)
+
+        @self.pg.production('expression : REKEY')
+        def start_rekey(p):
+            return Rekey(p)
+
         @self.pg.error
         def error_handle(token):
             raise Exception(token)
