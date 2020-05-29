@@ -104,7 +104,19 @@ def memory_information():
         contents = [int(line.split()[1]) for line in fp.readlines()[:3]]
     total, free, available = tuple(contents)
     return int(formatting(total, 2)), formatting(free, 2), formatting(available, 2), (round((free/available), 2))
-    
+
+def graphics_information():
+        
+  _r_graphics_card_running = r'(?i).*(VGA|3D.*).*\:.*\[(?P<model>.*?)\]'
+
+  if(os.geteuid() != 0):
+    raise Exception("[-] Please run this script as root")
+
+    vga = subprocess.check_output("lspci", shell=True, executable='/bin/bash').decode("utf-8")
+    # work on this
+    graphics = re.compile(_r_graphics_card_running).match(vga)
+    return graphics
+
 
 
 def fetch():
