@@ -68,3 +68,16 @@ def multiply(p):
 ```
 Where the `Multiply` function would be defined in the `AST`.
 For this to work as well, you would need to define what a number is, which can be defined in the lexer token map.
+
+These implementations are inherently recursive, meaning we need to defined every basic data type involved so a proper grammar can be established.
+
+
+# Secondary Components
+
+These modules are to be implemented after a proper interpreter has been established.
+
+- [X] ClassInformation: retrieve information about classes based on the current class catalog
+- [X] Fetch: grab hardware and configuration information about a given user
+- [] TuffixAnsiblePlaybookManager: an intermediary class that handles the installation and removal of Ansible playbooks, also checking for the presence of file locks. These signify if a target has already been installed.
+
+
