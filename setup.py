@@ -28,8 +28,10 @@ setup(
     license='GNU GPL-3.0',
     packages=[PKG_NAME],
     install_requires = [
+      'beautifulsoup4',
+      'colored',
       'llvmlite',
-      'rply'
+      'rply',
     ],
     include_package_data=True,
     classifiers=['Programming Language :: Python :: 3.8']

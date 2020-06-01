@@ -16,22 +16,24 @@ This takes in a "token map", which is just a dictionary that has a string associ
 Here is the one we are using in this project:
 
 ```python
-cpsc_regex = r'CPSC\-(?P<course>[0-9]{3})'
+cpsc_regex = r'CPSC\-(?P<course>[0-9]{3}[A-Z]?)'
 
-token_map = {
+TuffixTokenMap = {
+
   # builtin functions
-  "INIT": r'.*init.*',
-  "ADD": r'.*add.*|{}'.format(cpsc_regex),
-  "REMOVE": r'.*remove.*|{}'.format(cpsc_regex),
-  "LIST_INSTALLED": r'.*installed.*',
-  "LIST_AVAILABLE": r'.*available.*',
-  "DESCRIBE_TARGET": r'.*describe.*|{}'.format(cpsc_regex),
-  "REKEY": r'.*rekey.*',
-  "STATUS": r'.*status.*',
+  "INIT": r'(?i)init',
+  "ADD": r'(?i)add.*CPSC\-(?P<course>[0-9]{3}[A-Z]?)',
+  "REMOVE": r'(?i)remove.*CPSC\-(?P<course>[0-9]{3}[A-Z]?)',
+  "LIST_INSTALLED": r'(?i)installed',
+  "LIST_AVAILABLE": r'(?i)available',
+  "DESCRIBE_TARGET": r'(?i)describe.*CPSC\-(?P<course>[0-9]{3}[A-Z]?)',
+  "REKEY": r'(?i)rekey',
+  "STATUS": r'(?i)status',
   "TARGET": cpsc_regex,
 
   # syntax
   "COMMENT": r'^\#.*[a-zA-Z0-9]',
+
 }
 ```
 And we are ignoring spaces by default.
