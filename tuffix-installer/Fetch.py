@@ -11,6 +11,8 @@ import os
 import subprocess
 import socket
 from datetime import datetime
+import sys
+from termcolor import colored
 
 def cpu_information():
   path = "/proc/cpuinfo"
@@ -106,24 +108,26 @@ def memory_information():
     return int(formatting(total, 2)), formatting(free, 2), formatting(available, 2), (round((free/available), 2))
 
 def graphics_information():
-        
-  _r_graphics_card_running = r'(?i).*(VGA|3D.*).*\:.*\[(?P<model>.*?)\]'
+  """
+  Use lspci to get the current graphics card in use
+  Requires pciutils to be installed
+  """
 
-  if(os.geteuid() != 0):
-    raise Exception("[-] Please run this script as root")
+  # https://stackoverflow.com/questions/13867696/python-in-linux-obtain-vga-specifications-via-lspci-or-hal
 
-    vga = subprocess.check_output("lspci", shell=True, executable='/bin/bash').decode("utf-8")
-    # work on this
-    graphics = re.compile(_r_graphics_card_running).match(vga)
-    return graphics
-
+  graphics_output =  subprocess.check_output("lspci | awk -F':' '/VGA|3D/ {print $3}'", shell=True, executable='/bin/bash').decode("utf-8").split("\n")
+  primary_out = colored("-{} [PRIMARY OUTPUT DEVICE]".format(graphics_output[0].strip()), 'green')
+  try:
+    secondary_out = colored("-{} [SECONDARY OUTPUT DEVICE]".format(graphics_output[1].strip()))
+  except IndexError:
+    secondary_out = colored("NONE: [SECONDARY OUTPUT DEVICE]", 'red')
+  return "\n\t{}\n\t{}".format(primary_out, secondary_out)
 
 
 def fetch():
   shell, editor, term = shell_env()
   physical, _, _, _ = memory_information()
-  print(
-"""
+  _fetched = """
 OS: {}
 Host: {}
 Kernel: {}
@@ -132,19 +136,23 @@ Shell: {}
 Editor: {}
 Terminal: {}
 CPU: {}
+GPU: {}
 Memory: {} GB
-Time: {}
-""".format(
-      current_operating_system(),
-      current_model(),
-      uname(),
-      current_uptime(),
-      shell,
-      editor,
-      term,
-      cpu_information(),
-      physical,
-      current_time()
-  ))
+Current Time: {}
+  """.format(
+    current_operating_system(),
+    current_model(),
+    uname(),
+    current_uptime(),
+    shell,
+    editor,
+    term,
+    cpu_information(),
+    graphics_information(),
+    physical,
+    current_time()
+ )
+  print(_fetched)
 
 
+fetch()
